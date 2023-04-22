@@ -1,0 +1,28 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.8
+    commands:
+      - echo "Installing AWS SAM CLI..."
+      - pip install aws-sam-cli
+
+  pre_build:
+    commands:
+      - echo "Running tests and linting the code..."
+
+  build:
+    commands:
+      - echo "Building the SAM application..."
+      - sam build --template template.yaml --use-container
+
+  post_build:
+    commands:
+      - echo "Packaging the SAM application..."
+      - sam package --s3-bucket $S3_BUCKET --output-template-file packaged.yaml
+
+artifacts:
+  files:
+    - packaged.yaml
+  discard-paths: yes
