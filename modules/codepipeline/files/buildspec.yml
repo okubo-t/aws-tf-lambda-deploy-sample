@@ -16,7 +16,7 @@ phases:
     commands:
       - echo "Building the SAM application..."
       - sam build --template template.yaml --use-container
-
+      #- sam deploy --config-env $ENVIRONMENT --no-fail-on-empty-changeset 
   post_build:
     commands:
       - echo "Packaging the SAM application..."
